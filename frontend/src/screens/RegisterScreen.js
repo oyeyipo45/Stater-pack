@@ -3,15 +3,19 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from './../components/Message';
 import Loader from './../components/Loader';
-import { login } from './../actions/userAction';
+import { register } from './../actions/userAction';
 
-const LoginScreen = ({ location, history }) => {
+const RegisterScreen = ({ location, history }) => {
+	const [name, setName] = useState('');
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
+	const [confirmPassword, setConfirmPassword] = useState('');
+	const [message, setMessage] = useState(null);
+
 	const dispatch = useDispatch();
 
-	const userLogin = useSelector((state) => state.userLogin);
-	const { userInfo, loading, error } = userLogin;
+	const userRegister = useSelector((state) => state.userRegister);
+	const { userInfo, loading, error } = userRegister;
 
 	const redirect = location.search ? location.search.split('=')[1] : '/';
 
@@ -23,8 +27,12 @@ const LoginScreen = ({ location, history }) => {
 
 	const submitHandler = (e) => {
 		e.preventDefault();
-
-		dispatch(login(email, password));
+		e.preventDefault();
+		if (password !== confirmPassword) {
+			setMessage('password do not match');
+		} else {
+			dispatch(register(name, email, password));
+		}
 	};
 
 	return (
@@ -40,6 +48,7 @@ const LoginScreen = ({ location, history }) => {
 					/>
 				</div>
 				<span>
+					{message && <Message variant='danger'>{message}</Message>}
 					{error && <Message variant='danger'>{error}</Message>}
 					{loading && <Loader />}
 				</span>
@@ -48,6 +57,16 @@ const LoginScreen = ({ location, history }) => {
 					onSubmit={submitHandler}
 					className='customer-signin-form'
 				>
+					<div className='customer-signin-form-group'>
+						<input
+							type='name'
+							value={name}
+							className='customer-signin-form-input'
+							placeholder='Name'
+							onChange={(e) => setName(e.target.value)}
+							required
+						/>
+					</div>
 					<div className='customer-signin-form-group'>
 						<input
 							type='email'
@@ -69,19 +88,23 @@ const LoginScreen = ({ location, history }) => {
 						/>
 					</div>
 					<div className='customer-signin-form-group'>
-						<button className='customer-signin-btn'>Log In</button>
+						<input
+							type='password'
+							value={confirmPassword}
+							className='customer-signin-form-input'
+							placeholder='Confirm Password'
+							onChange={(e) => setConfirmPassword(e.target.value)}
+							required
+						/>
 					</div>
-					<Link to='#' className='customer-signin-forgot-link'>
-						Forgot your password?
-					</Link>
+					<div className='customer-signin-form-group'>
+						<button className='customer-signin-btn'>Register</button>
+					</div>
 
 					<div className='newUser'>
-						New Customer?{' '}
-						<Link
-							class='customer-register-link'
-							to={redirect ? `/register?redirect=${redirect}` : '/register'}
-						>
-							Register
+						Have an account ?{' '}
+						<Link to={redirect ? `/login?redirect=${redirect}` : '/login'}>
+							Login
 						</Link>{' '}
 					</div>
 				</form>
@@ -90,4 +113,4 @@ const LoginScreen = ({ location, history }) => {
 	);
 };
 
-export default LoginScreen;
+export default RegisterScreen;
