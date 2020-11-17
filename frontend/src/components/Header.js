@@ -6,14 +6,14 @@ import { logout } from '../actions/userAction';
 
 const Header = () => {
 	const userLogin = useSelector((state) => state.userLogin);
-	const { userInfo } = userLogin
-	
-	const dispatch = useDispatch()
+	const { userInfo } = userLogin;
+
+	const dispatch = useDispatch();
 
 	const logoutHandler = (e) => {
-		e.preventDefault()
-		dispatch(logout())
-	}
+		e.preventDefault();
+		dispatch(logout());
+	};
 	return (
 		<header>
 			<Navbar bg='dark' variant='dark' expand='lg' collapseOnSelect>
@@ -45,6 +45,13 @@ const Header = () => {
 										Sign In <i className='fas fa-user'></i>
 									</Nav.Link>
 								</LinkContainer>
+							)}
+							{userInfo && userInfo.isAdmin && (
+								<NavDropdown title='Admin' id='adminmenu'>
+								<LinkContainer to='/admin/userlist'>
+									<NavDropdown.Item>Users</NavDropdown.Item>
+								</LinkContainer>
+							</NavDropdown>
 							)}
 						</Nav>
 					</Navbar.Collapse>

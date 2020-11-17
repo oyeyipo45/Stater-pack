@@ -1,10 +1,11 @@
-
-
-import {POST_DETAILS_SUCCESS, POST_DETAILS_REQUEST, POST_LIST_REQUEST, POST_LIST_SUCCESS, POST_LIST_FAIL, POST_DETAILS_FAIL } from "../constants/postConstant";
-
-
-
-
+import {
+	POST_DETAILS_SUCCESS,
+	POST_DETAILS_REQUEST,
+	POST_LIST_REQUEST,
+	POST_LIST_SUCCESS,
+	POST_LIST_FAIL,
+	POST_DETAILS_FAIL,
+} from '../constants/postConstant';
 
 export const postListReducer = (state = { posts: [] }, action) => {
 	switch (action.type) {
@@ -19,10 +20,7 @@ export const postListReducer = (state = { posts: [] }, action) => {
 	}
 };
 
-export const postDetailsReducer = (
-	state = { post: {} },
-	action
-) => {
+export const postDetailsReducer = (state = { post: {} }, action) => {
 	switch (action.type) {
 		case POST_DETAILS_REQUEST:
 			return { loading: true, ...state };

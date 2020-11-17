@@ -24,8 +24,10 @@ const Body = () => {
 					</div>
 				))}
 			</div> */}
-			<div className="loading-container">{error && <Message variant='danger'>{error}</Message>}
-			{loading && <Loader />}</div>
+			<div className='loading-container'>
+				{error && <Message variant='danger'>{error}</Message>}
+				{loading && <Loader />}
+			</div>
 
 			<div>
 				{posts.map((post) => (

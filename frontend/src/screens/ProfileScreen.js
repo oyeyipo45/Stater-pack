@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from './../components/Message';
 import Loader from './../components/Loader';
-import {getUserDetails, updateUserProfile } from './../actions/userAction';
+import { getUserDetails, updateUserProfile } from './../actions/userAction';
 import { USER_UPDATE_PROFILE_RESET } from '../constants/userConstants';
 
 const RegisterScreen = ({ history }) => {
@@ -15,27 +15,26 @@ const RegisterScreen = ({ history }) => {
 	const dispatch = useDispatch();
 
 	const userDetails = useSelector((state) => state.userDetails);
-    const { user, loading, error } = userDetails;
-    
-    const userLogin = useSelector((state) => state.userLogin);
-    const { userInfo } = userLogin;
-    
-    const userUpdateProfile = useSelector((state) => state.userUpdateProfile);
+	const { user, loading, error } = userDetails;
+
+	const userLogin = useSelector((state) => state.userLogin);
+	const { userInfo } = userLogin;
+
+	const userUpdateProfile = useSelector((state) => state.userUpdateProfile);
 	const { success } = userUpdateProfile;
 
-	
 	useEffect(() => {
 		if (!userInfo) {
 			history.push('/login');
 		} else {
-            if(!user.name || !user.name) {
-                dispatch({type: USER_UPDATE_PROFILE_RESET})
-               dispatch(getUserDetails('profile')) 
-            } else {
-                setName(user.name)
-                setEmail(user.email)
-            }
-        }
+			if (!user.name || !user.name) {
+				dispatch({ type: USER_UPDATE_PROFILE_RESET });
+				dispatch(getUserDetails('profile'));
+			} else {
+				setName(user.name);
+				setEmail(user.email);
+			}
+		}
 	}, [dispatch, history, userInfo, user]);
 
 	const submitHandler = (e) => {
@@ -59,7 +58,7 @@ const RegisterScreen = ({ history }) => {
 					/>
 				</div>
 				<span>
-                {success && <Message variant='success'>Profile Updated</Message>}
+					{success && <Message variant='success'>Profile Updated</Message>}
 					{message && <Message variant='danger'>{message}</Message>}
 					{error && <Message variant='danger'>{error}</Message>}
 					{loading && <Loader />}
@@ -96,7 +95,7 @@ const RegisterScreen = ({ history }) => {
 							className='customer-signin-form-input'
 							placeholder='Password'
 							onChange={(e) => setPassword(e.target.value)}
-							required
+							
 						/>
 					</div>
 					<div className='customer-signin-form-group'>
@@ -106,7 +105,7 @@ const RegisterScreen = ({ history }) => {
 							className='customer-signin-form-input'
 							placeholder='Confirm Password'
 							onChange={(e) => setConfirmPassword(e.target.value)}
-							required
+							
 						/>
 					</div>
 					<div className='customer-signin-form-group'>

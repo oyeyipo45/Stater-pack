@@ -8,6 +8,8 @@ import { login } from './../actions/userAction';
 const LoginScreen = ({ location, history }) => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
+	const [message, setMessage] = useState(null);
+
 	const dispatch = useDispatch();
 
 	const userLogin = useSelector((state) => state.userLogin);
@@ -23,8 +25,11 @@ const LoginScreen = ({ location, history }) => {
 
 	const submitHandler = (e) => {
 		e.preventDefault();
-
-		dispatch(login(email, password));
+		if (email === '' || password === '') {
+			setMessage('Please fill all fields');
+		} else {
+			dispatch(login(email, password));
+		}
 	};
 
 	return (
@@ -40,6 +45,7 @@ const LoginScreen = ({ location, history }) => {
 					/>
 				</div>
 				<span>
+				{message && <Message variant='danger'>{message}</Message>}
 					{error && <Message variant='danger'>{error}</Message>}
 					{loading && <Loader />}
 				</span>
@@ -78,7 +84,7 @@ const LoginScreen = ({ location, history }) => {
 					<div className='newUser'>
 						New Customer?{' '}
 						<Link
-							class='customer-register-link'
+							className='customer-register-link'
 							to={redirect ? `/register?redirect=${redirect}` : '/register'}
 						>
 							Register

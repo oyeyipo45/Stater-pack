@@ -1,18 +1,14 @@
 import Post from '../models/postModel.js';
 import asyncHandler from 'express-async-handler';
 
-
-
-
 // @desc Fetch All Posts
 // @route GET /api/posts
 // @access Public
 
-const getPosts = asyncHandler (async( req, res) => {
-    const posts = await Post.find({})
-    res.json(posts);
-})
-
+const getPosts = asyncHandler(async (req, res) => {
+	const posts = await Post.find({});
+	res.json(posts);
+});
 
 // @desc Fetch one Post
 // @route GET /api/posts/:id
@@ -27,6 +23,4 @@ const getPostById = asyncHandler(async (req, res) => {
 	}
 });
 
-
-
-export {getPosts, getPostById}
+export { getPosts, getPostById };
