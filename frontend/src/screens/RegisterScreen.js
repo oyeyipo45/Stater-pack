@@ -27,13 +27,12 @@ const RegisterScreen = ({ location, history }) => {
 
 	const submitHandler = (e) => {
 		e.preventDefault();
-		e.preventDefault();
 		if (password !== confirmPassword) {
 			setMessage('password do not match');
 		} else if (!name || !email || !password || !confirmPassword) {
             setMessage('Please fill all fields ');
         } else {
-			dispatch(register(name, email, password));
+			dispatch(register(name, email, password, confirmPassword));
 		}
 	};
 
